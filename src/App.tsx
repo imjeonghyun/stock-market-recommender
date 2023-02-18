@@ -1,13 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header';
+import StockResult from './components/StockResult';
 
-function App() {
+const App: React.FC<{}> = () => {
   return (
     <div>
-      <header>first commit</header>
+      <Header />
+      <StockResult />
     </div>
   );
-}
+};
 
 export default App;
