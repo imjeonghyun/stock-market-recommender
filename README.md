@@ -2,11 +2,11 @@
 
 ## Overview
 
-Displays stock recommendations for the past 10 days
-
-- Mock data is used in the app with a possibility of redirecting the flow to an actual API call
-- Simple Moving Average(SMA) logic is used in order to calculate the stock market recommendation
-- Based on NYSE stock symbol data table
+- App for providing a buy, sell or hold recommendation when a given stock symbol
+  - Displays stock recommendations for the past 10 days
+  - Mock data is used in the app with a possibility of redirecting the flow to an actual API call
+  - Simple Moving Average(SMA) logic is used in order to calculate the stock market recommendation
+  - Based on NYSE stock symbol data
 
 ## Recommendation logic
 
@@ -60,7 +60,10 @@ Displays stock recommendations for the past 10 days
     - Holds NYSE stock symbol data
   - getData
     - Generates mock data of stock information for price and social media counts
+- Unit test:
+  - StockDataTable
+    - `npm test a` OR `npm test StockDataTable`
 
 ## Result
 
-<img src='./public/StockMarketRecommender.JPG' style='width:100%'/>
+<img src='./public/StockMarketRecommender.jpg' style='width:100%'/>

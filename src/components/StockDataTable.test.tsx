@@ -238,7 +238,13 @@ describe('StockDataTable', () => {
     const { container } = render(<StockDataTable stockData={mockStockData} />);
     const getById = queryByAttribute.bind(null, 'id');
 
-    const recommendationCells = getById(container, 'A0');
-    expect(recommendationCells).toHaveTextContent('Hold');
+    const holdRecommendation = getById(container, 'A0');
+    expect(holdRecommendation).toHaveTextContent('Hold');
+
+    const buyRecommendation = getById(container, 'A1');
+    expect(buyRecommendation).toHaveTextContent('Buy');
+
+    const sellRecommendation = getById(container, 'A4');
+    expect(sellRecommendation).toHaveTextContent('Sell');
   });
 });
