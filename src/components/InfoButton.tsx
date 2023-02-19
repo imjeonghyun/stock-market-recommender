@@ -30,6 +30,4 @@ const Button = styled.button`
   }
 `;
 
-const Alert = styled.div``;
-
 export default InfoButton;

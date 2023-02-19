@@ -10,7 +10,7 @@ const StockSymbol: React.FC<Props> = (props) => {
   const onTypeStockSymbol = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue: string = e.target.value;
 
-    setStockSymbol(newValue);
+    setStockSymbol(newValue.toUpperCase());
   };
 
   return (

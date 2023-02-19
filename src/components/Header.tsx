@@ -28,7 +28,7 @@ const Header: React.FC<Props> = (props) => {
       <UserContainer>
         <UserInteraction>
           <StockSymbolInput
-            title='Stock Symbol'
+            title='NYSE Stock Symbol'
             stockSymbol={stockSymbol}
             setStockSymbol={setStockSymbol}
           />

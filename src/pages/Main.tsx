@@ -9,6 +9,7 @@ const Main: React.FC<{}> = () => {
   const [latestPull, setLatestPull] = useState<string>('');
   const [stockSymbol, setStockSymbol] = useState<string>('');
   const [showResults, setShowResults] = useState<boolean>(false);
+  const [showAlert, setAlert] = useState<boolean>(false);
 
   // This function can be changed to pull data from an API
   const pullData = (stockSymbol: string): StockInformation[] => {
@@ -16,8 +17,16 @@ const Main: React.FC<{}> = () => {
   };
 
   const onGetInformation = (stockSymbol: string) => {
-    if (!stockSymbol || !NYSE.includes(stockSymbol.toUpperCase())) {
+    if (!stockSymbol) {
       setShowResults(false);
+      setAlert(false);
+      setStockData([]);
+      return;
+    }
+
+    if (!NYSE.includes(stockSymbol.toUpperCase())) {
+      setAlert(true);
+      setStockData([]);
       return;
     }
 
@@ -35,6 +44,7 @@ const Main: React.FC<{}> = () => {
       setLatestPull(pullDate);
     }
 
+    setAlert(false);
     setShowResults(true);
   };
 
@@ -45,7 +55,9 @@ const Main: React.FC<{}> = () => {
         setStockSymbol={setStockSymbol}
         onGetInformation={onGetInformation}
       />
-      {showResults && <StockResult stockData={stockData} />}
+      {showResults || showAlert ? (
+        <StockResult showAlert={showAlert} stockData={stockData} />
+      ) : null}
     </div>
   );
 };
