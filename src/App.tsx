@@ -1,12 +1,13 @@
-import Header from './components/Header';
-import StockResult from './components/StockResult';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Main from './pages/Main';
 
 const App: React.FC<{}> = () => {
   return (
-    <div>
-      <Header />
-      <StockResult />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Main />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

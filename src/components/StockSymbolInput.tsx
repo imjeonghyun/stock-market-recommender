@@ -1,15 +1,29 @@
 type Props = {
   title: string;
+  stockSymbol: string;
+  setStockSymbol: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const StockSymbol: React.FC<Props> = (props) => {
-  const { title } = props;
+  const { title, stockSymbol, setStockSymbol } = props;
+
+  const onTypeStockSymbol = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue: string = e.target.value;
+
+    setStockSymbol(newValue);
+  };
 
   return (
-    <div>
+    <>
       <div>{title}</div>
-      <input type='text' />
-    </div>
+      <input
+        type='text'
+        value={stockSymbol}
+        onChange={onTypeStockSymbol}
+        min='1'
+        max='30'
+      />
+    </>
   );
 };
 

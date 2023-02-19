@@ -1,4 +1,9 @@
 const StockSymbolDisplay = () => {
-  return <div>StockSymbolDisplay</div>;
+  return (
+    <div>
+      <div>StockSymbolDisplay</div>
+      <div>Invalid stock symbol</div>
+    </div>
+  );
 };
 export default StockSymbolDisplay;

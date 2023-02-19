@@ -2,15 +2,16 @@ import styled from 'styled-components';
 
 type Props = {
   title: string;
+  stockSymbol: string;
+  onGetInformation: (stockSymbol: string) => void;
 };
 
 const InfoButton: React.FC<Props> = (props) => {
-  const { title } = props;
+  const { title, stockSymbol, onGetInformation } = props;
 
   return (
     <>
-      <Button>{title}</Button>
-      <Alert>Invalid stock symbol</Alert>
+      <Button onClick={() => onGetInformation(stockSymbol)}>{title}</Button>
     </>
   );
 };
