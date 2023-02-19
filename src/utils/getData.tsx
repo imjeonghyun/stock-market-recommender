@@ -1,10 +1,17 @@
-import { DEFAULT_DAYS } from './constants';
+export const DEFAULT_DAYS = 10;
+
+export interface socialMediaCount {
+  facebook: number;
+  twitter: number;
+  instagram: number;
+  reddit: number;
+}
 
 export interface StockInformation {
   symbol: string;
   date: string;
   price: number;
-  socialMediaCount: number;
+  socialMediaCount: socialMediaCount;
 }
 
 export const formatDate = (date: Date): string => {
@@ -46,14 +53,19 @@ const generateMockDataPerDate = (
     symbol: stockSymbol,
     date: formatDate(date),
     price: generateRandomPrice(),
-    socialMediaCount: generateRandomSocialMediaCounts(),
+    socialMediaCount: {
+      facebook: generateRandomSocialMediaCounts(),
+      twitter: generateRandomSocialMediaCounts(),
+      instagram: generateRandomSocialMediaCounts(),
+      reddit: generateRandomSocialMediaCounts(),
+    },
   };
 };
 
 const getMockData = (stockSymbol: string): StockInformation[] => {
   const stockInformation: StockInformation[] = [];
   let generationDate = new Date(
-    new Date().getTime() - 10 * 24 * 60 * 60 * 1000
+    new Date().getTime() - DEFAULT_DAYS * 24 * 60 * 60 * 1000
   );
 
   for (let i = DEFAULT_DAYS; i >= 0; i--) {

@@ -11,10 +11,12 @@ const StockResult: React.FC<Props> = (props) => {
   const { stockData, showAlert } = props;
 
   return (
-    <div>
-      {showAlert && <StockSymbolDisplay />}
-      {stockData.length && <StockDataTable stockData={stockData} />}
-    </div>
+    <>
+      <div>{showAlert && <StockSymbolDisplay />}</div>
+      <div>
+        {stockData.length ? <StockDataTable stockData={stockData} /> : null}
+      </div>
+    </>
   );
 };
 

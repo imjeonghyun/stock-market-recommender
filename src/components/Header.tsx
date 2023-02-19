@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { formatDate } from '../utils/getData';
+import { DEFAULT_DAYS, formatDate } from '../utils/getData';
 import InfoButton from './InfoButton';
 import StockSymbolInput from './StockSymbolInput';
 
@@ -14,7 +14,7 @@ const Header: React.FC<Props> = (props) => {
 
   const currentDate = formatDate(new Date());
   const oldestDate = formatDate(
-    new Date(new Date().getTime() - 10 * 24 * 60 * 60 * 1000)
+    new Date(new Date().getTime() - DEFAULT_DAYS * 24 * 60 * 60 * 1000)
   );
 
   return (

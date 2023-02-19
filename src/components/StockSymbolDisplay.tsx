@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-const StockSymbolDisplay = () => {
+const StockSymbolDisplay: React.FC<{}> = () => {
   return (
-    <div>
+    <>
       <AlertMessage>Invalid stock symbol!</AlertMessage>
-    </div>
+    </>
   );
 };
 
