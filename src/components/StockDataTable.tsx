@@ -1,6 +1,47 @@
 import styled from 'styled-components';
+import { StockInformation } from '../utils/getData';
 
-const StockDataTable = () => {
+type Props = {
+  stockData: StockInformation[];
+};
+
+type StockRecommendation = 'Buy' | 'Sell' | 'Hold';
+
+const StockDataTable: React.FC<Props> = (props) => {
+  const { stockData } = props;
+
+  const calculateRecommendation = (
+    data: StockInformation[],
+    currentIndex: number
+  ): StockRecommendation => {
+    if (currentIndex === 0) return 'Hold';
+
+    const currentPrice = data[currentIndex].price;
+    const currentPopularity = data[currentIndex].socialMediaCount;
+
+    const averagePriceToDate =
+      data
+        .slice(0, currentIndex + 1)
+        .reduce((acc, currData) => acc + currData.price, 0) / data.length;
+    const averagePopularityToDate =
+      data
+        .slice(0, currentIndex + 1)
+        .reduce((acc, currData) => acc + currData.socialMediaCount, 0) /
+      data.length;
+
+    if (
+      currentPrice < averagePriceToDate &&
+      currentPopularity > averagePopularityToDate
+    ) {
+      return 'Buy';
+    } else if (
+      currentPrice > averagePriceToDate &&
+      currentPopularity > averagePopularityToDate
+    ) {
+      return 'Hold';
+    } else return 'Sell';
+  };
+
   return (
     <TableContainer>
       <RecommendTable>
@@ -9,18 +50,20 @@ const StockDataTable = () => {
             <th>Date</th>
             <th>Price</th>
             <th>Social Media Counts</th>
-            <th>Rating</th>
             <th>Recommendation</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-          </tr>
+          {stockData.map((data, idx) => {
+            return (
+              <tr>
+                <td>{data.date}</td>
+                <td>{data.price}</td>
+                <td>{data.socialMediaCount}</td>
+                <td>{calculateRecommendation(stockData, idx)}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </RecommendTable>
     </TableContainer>

@@ -23,8 +23,8 @@ const numberRandomizer = (
 };
 
 const generateRandomPrice = (): number => {
-  const lowestPrice = 100;
-  const highestPrice = 2000;
+  const lowestPrice = 10;
+  const highestPrice = 300;
 
   return parseFloat(numberRandomizer(lowestPrice, highestPrice).toFixed(2));
 };
@@ -52,13 +52,15 @@ const generateMockDataPerDate = (
 
 const getMockData = (stockSymbol: string): StockInformation[] => {
   const stockInformation: StockInformation[] = [];
-  let generationDate = new Date();
+  let generationDate = new Date(
+    new Date().getTime() - 10 * 24 * 60 * 60 * 1000
+  );
 
-  for (let i = 0; i < DEFAULT_DAYS; i++) {
+  for (let i = DEFAULT_DAYS; i >= 0; i--) {
     const dateData = generateMockDataPerDate(stockSymbol, generationDate);
     stockInformation.push(dateData);
 
-    generationDate.setDate(generationDate.getDate() - 1);
+    generationDate.setDate(generationDate.getDate() + 1);
   }
 
   return stockInformation;

@@ -1,12 +1,19 @@
 import StockSymbolDisplay from './StockSymbolDisplay';
 import StockDataTable from './StockDataTable';
+import { StockInformation } from '../utils/getData';
 
-const StockResult: React.FC<{}> = () => {
+type Props = {
+  stockData: StockInformation[];
+};
+
+const StockResult: React.FC<Props> = (props) => {
+  const { stockData } = props;
+
   return (
-    <div>
-      <StockSymbolDisplay />
-      <StockDataTable />
-    </div>
+    <>
+      {/* <StockSymbolDisplay /> */}
+      <StockDataTable stockData={stockData} />
+    </>
   );
 };
 export default StockResult;

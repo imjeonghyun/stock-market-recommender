@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { formatDate } from '../utils/getData';
 import InfoButton from './InfoButton';
 import StockSymbolInput from './StockSymbolInput';
 
@@ -11,8 +12,10 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
   const { stockSymbol, setStockSymbol, onGetInformation } = props;
 
-  const currentDate = new Date();
-  const oldestDate = new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000);
+  const currentDate = formatDate(new Date());
+  const oldestDate = formatDate(
+    new Date(new Date().getTime() - 10 * 24 * 60 * 60 * 1000)
+  );
 
   return (
     <HeaderContainer>
@@ -45,6 +48,7 @@ const Header: React.FC<Props> = (props) => {
 const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: #5d5555;
   color: white;
 `;
@@ -56,7 +60,10 @@ const Headline = styled.div`
 `;
 
 const TimeWindow = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
+  padding: 30px;
 `;
 
 const UserContainer = styled.div`
