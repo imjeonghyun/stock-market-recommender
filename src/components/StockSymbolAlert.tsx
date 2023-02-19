@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StockSymbolDisplay: React.FC<{}> = () => {
+const StockSymbolAlert: React.FC<{}> = () => {
   return (
     <>
       <AlertMessage>Invalid stock symbol!</AlertMessage>
@@ -14,4 +14,4 @@ const AlertMessage = styled.div`
   color: red;
   padding-top: 3%;
 `;
-export default StockSymbolDisplay;
+export default StockSymbolAlert;

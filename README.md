@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+# Stock Market Recommender app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Displays stock recommendations for the past 10 days
 
-In the project directory, you can run:
+- Mock data is used in the app with a possibility of redirecting the flow to an actual API call
+- Simple Moving Average(SMA) logic is used in order to calculate the stock market recommendation
+- Based on NYSE stock symbol data table
 
-### `npm start`
+## Recommendation logic
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The recommendation result is based on Price and Social Media Counts
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  - Referenced 4 Social Media Platforms
+    - Facebook
+    - Twitter
+    - Instagram
+    - Reddit
 
-### `npm test`
+- The recommendation algorithm is based on Simple Moving Average(SMA)
+  - SMA is an average of a selected range of prices (closing prices) by the number of periods in that range
+    - Formula is following:
+      - SMA = (A1 + A2 + ... + An) / n
+        - An = the price of an asset at period n
+        - n = the number of total periods
+    - Two terms have been used for the calculation (the range is adjustable)
+      - The short-term: 3 days
+      - The long-term: 7 days
+    - The condition of Buy/Sell/hold
+      - Buy
+        - The average price of the short-term is higher than the average price of the long-term as well as the average social media count of the short-term is higher than the average social media count of the long-term
+      - Sell
+        - The average price of the short-term is lover than the average price of the long-term as well as the average social media count of the short-term is lover than the average social media count of the long-term
+      - Hold
+        - none of the above
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Structure
 
-### `npm run build`
+- Components:
+  - Header
+    - Header of the main web-page
+  - StockSymbolInput
+    - Input box for typing a stock symbol
+  - InfoButton
+    - Process to display recommendation information regarding stock symbol input
+  - StockSymbolAlert
+    - Display an alert regarding non-existent stock symbol input
+  - StockDataTable
+    - Display date, price, social media counts and recommendation of buy/sell/hold
+    - Contain recommendation algorithm logic
+    - Add/remove social media platforms and recalculate a total of social media counts
+  - StockResult
+    - A sector for displaying either Alert or stock data table
+- Pages:
+  - Main
+    - Main page of the project
+- Utils:
+  - Data folder
+    - Holds NYSE stock symbol data
+  - getData
+    - Generates mock data of stock information for price and social media counts
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Result
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img src='./public/StockMarketRecommender.JPG' style='width:100%'/>

@@ -1,4 +1,4 @@
-import StockSymbolDisplay from './StockSymbolDisplay';
+import StockSymbolAlert from './StockSymbolAlert';
 import StockDataTable from './StockDataTable';
 import { StockInformation } from '../utils/getData';
 
@@ -12,7 +12,7 @@ const StockResult: React.FC<Props> = (props) => {
 
   return (
     <>
-      <div>{showAlert && <StockSymbolDisplay />}</div>
+      <div>{showAlert && <StockSymbolAlert />}</div>
       <div>
         {stockData.length ? <StockDataTable stockData={stockData} /> : null}
       </div>
