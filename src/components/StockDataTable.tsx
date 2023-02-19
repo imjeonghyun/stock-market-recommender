@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { socialMediaCount, StockInformation } from '../utils/getData';
+import {
+  DEFAULT_DISPLAY_DAYS,
+  socialMediaCount,
+  StockInformation,
+} from '../utils/getData';
 
 type MediaCheck = {
   facebook: boolean;
@@ -17,6 +21,8 @@ type StockRecommendation = 'Buy' | 'Sell' | 'Hold';
 
 const StockDataTable: React.FC<Props> = (props) => {
   const { stockData } = props;
+  const shortTermPeriod = 3;
+  const longTermPeriod = 7;
 
   const [mediaCount, setMediaCount] = useState<MediaCheck>({
     facebook: true,
@@ -34,39 +40,48 @@ const StockDataTable: React.FC<Props> = (props) => {
 
   const calculateRecommendation = (
     data: StockInformation[],
-    currentIndex: number
+    currentIndex: number,
+    shortTermPeriod: number,
+    longTermPeriod: number
   ): StockRecommendation => {
-    if (currentIndex === 0) return 'Hold';
-
-    const currentPrice = data[currentIndex].price;
-    const currentPopularity = getSocialMediaCount(
-      data[currentIndex].socialMediaCount
+    console.log(JSON.stringify(data));
+    const shortTermData = data.slice(
+      currentIndex + 1 - shortTermPeriod,
+      currentIndex + 1
+    );
+    const longTermData = data.slice(
+      currentIndex + 1 - longTermPeriod,
+      currentIndex + 1
     );
 
-    const averagePriceToDate =
-      data
-        .slice(0, currentIndex + 1)
-        .reduce((acc, currData) => acc + currData.price, 0) / data.length;
-    const averagePopularityToDate =
-      data
-        .slice(0, currentIndex + 1)
-        .reduce(
-          (acc, currData) =>
-            acc + getSocialMediaCount(currData.socialMediaCount),
-          0
-        ) / data.length;
+    const shortTermPriceAverage =
+      shortTermData.reduce((acc, currData) => acc + currData.price, 0) /
+      shortTermPeriod;
+    const longTermPriceAverage =
+      longTermData.reduce((acc, currData) => acc + currData.price, 0) /
+      longTermPeriod;
+    const shortTermPopularityAverage =
+      shortTermData.reduce(
+        (acc, currData) => acc + getSocialMediaCount(currData.socialMediaCount),
+        0
+      ) / shortTermPeriod;
+    const longTermPopularityAverage =
+      longTermData.reduce(
+        (acc, currData) => acc + getSocialMediaCount(currData.socialMediaCount),
+        0
+      ) / longTermPeriod;
 
     if (
-      currentPrice < averagePriceToDate &&
-      currentPopularity > averagePopularityToDate
+      shortTermPriceAverage > longTermPriceAverage &&
+      shortTermPopularityAverage > longTermPopularityAverage
     ) {
       return 'Buy';
     } else if (
-      currentPrice > averagePriceToDate &&
-      currentPopularity > averagePopularityToDate
+      shortTermPriceAverage < longTermPriceAverage &&
+      shortTermPopularityAverage < longTermPopularityAverage
     ) {
-      return 'Hold';
-    } else return 'Sell';
+      return 'Sell';
+    } else return 'Hold';
   };
 
   const getSocialMediaCount = (socialMediaCounts: socialMediaCount): number => {
@@ -114,13 +129,20 @@ const StockDataTable: React.FC<Props> = (props) => {
           </tr>
         </thead>
         <tbody>
-          {stockData.map((data, idx) => {
+          {stockData.slice(DEFAULT_DISPLAY_DAYS * -1).map((data, idx) => {
             return (
-              <tr key={`${data.symbol}${idx}`}>
+              <tr key={`${data.symbol}${idx}`} id={`${data.symbol}${idx}`}>
                 <td>{data.date}</td>
                 <td>{data.price}</td>
                 <td>{getSocialMediaCount(data.socialMediaCount)}</td>
-                <td>{calculateRecommendation(stockData, idx)}</td>
+                <td>
+                  {calculateRecommendation(
+                    stockData,
+                    idx + DEFAULT_DISPLAY_DAYS,
+                    shortTermPeriod,
+                    longTermPeriod
+                  )}
+                </td>
               </tr>
             );
           })}

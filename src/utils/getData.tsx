@@ -1,4 +1,5 @@
-export const DEFAULT_DAYS = 10;
+export const DEFAULT_DISPLAY_DAYS = 10;
+export const DEFAULT_PULL_DAYS = DEFAULT_DISPLAY_DAYS + 7;
 
 export interface socialMediaCount {
   facebook: number;
@@ -65,10 +66,10 @@ const generateMockDataPerDate = (
 const getMockData = (stockSymbol: string): StockInformation[] => {
   const stockInformation: StockInformation[] = [];
   let generationDate = new Date(
-    new Date().getTime() - DEFAULT_DAYS * 24 * 60 * 60 * 1000
+    new Date().getTime() - DEFAULT_PULL_DAYS * 24 * 60 * 60 * 1000
   );
 
-  for (let i = DEFAULT_DAYS; i >= 0; i--) {
+  for (let i = DEFAULT_PULL_DAYS; i >= 0; i--) {
     const dateData = generateMockDataPerDate(stockSymbol, generationDate);
     stockInformation.push(dateData);
 
