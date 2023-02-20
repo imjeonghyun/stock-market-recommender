@@ -113,7 +113,7 @@ const StockDataTable: React.FC<Props> = (props) => {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Price</th>
+            <th>$ Price</th>
             <th>
               <div>Social Media Counts</div>
               <SocialMediaCheckBox>
