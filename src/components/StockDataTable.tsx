@@ -48,6 +48,7 @@ const StockDataTable: React.FC<Props> = (props) => {
       currentIndex + 1 - shortTermPeriod,
       currentIndex + 1
     );
+
     const longTermData = data.slice(
       currentIndex + 1 - longTermPeriod,
       currentIndex + 1
@@ -56,14 +57,17 @@ const StockDataTable: React.FC<Props> = (props) => {
     const shortTermPriceAverage =
       shortTermData.reduce((acc, currData) => acc + currData.price, 0) /
       shortTermPeriod;
+
     const longTermPriceAverage =
       longTermData.reduce((acc, currData) => acc + currData.price, 0) /
       longTermPeriod;
+
     const shortTermPopularityAverage =
       shortTermData.reduce(
         (acc, currData) => acc + getSocialMediaCount(currData.socialMediaCount),
         0
       ) / shortTermPeriod;
+
     const longTermPopularityAverage =
       longTermData.reduce(
         (acc, currData) => acc + getSocialMediaCount(currData.socialMediaCount),

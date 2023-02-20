@@ -66,12 +66,14 @@ const generateMockDataPerDate = (
 
 const getMockData = (stockSymbol: string): StockInformation[] => {
   const stockInformation: StockInformation[] = [];
+
   let generationDate = new Date(
     new Date().getTime() - DEFAULT_PULL_DAYS * 24 * 60 * 60 * 1000
   );
 
   for (let i = DEFAULT_PULL_DAYS; i >= 0; i--) {
     const dateData = generateMockDataPerDate(stockSymbol, generationDate);
+
     stockInformation.push(dateData);
 
     generationDate.setDate(generationDate.getDate() + 1);
