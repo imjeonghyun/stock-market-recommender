@@ -16,6 +16,7 @@ export interface StockInformation {
 }
 
 export const formatDate = (date: Date): string => {
+  // Convert date to MM/dd/yyyy format
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: '2-digit',

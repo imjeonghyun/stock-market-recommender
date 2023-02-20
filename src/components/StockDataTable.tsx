@@ -44,7 +44,6 @@ const StockDataTable: React.FC<Props> = (props) => {
     shortTermPeriod: number,
     longTermPeriod: number
   ): StockRecommendation => {
-    console.log(JSON.stringify(data));
     const shortTermData = data.slice(
       currentIndex + 1 - shortTermPeriod,
       currentIndex + 1
@@ -72,13 +71,19 @@ const StockDataTable: React.FC<Props> = (props) => {
       ) / longTermPeriod;
 
     if (
-      shortTermPriceAverage > longTermPriceAverage &&
-      shortTermPopularityAverage > longTermPopularityAverage
+      (shortTermPopularityAverage &&
+        shortTermPriceAverage > longTermPriceAverage &&
+        shortTermPopularityAverage > longTermPopularityAverage) ||
+      (!shortTermPopularityAverage &&
+        shortTermPriceAverage > longTermPriceAverage)
     ) {
       return 'Buy';
     } else if (
-      shortTermPriceAverage < longTermPriceAverage &&
-      shortTermPopularityAverage < longTermPopularityAverage
+      (shortTermPopularityAverage &&
+        shortTermPriceAverage < longTermPriceAverage &&
+        shortTermPopularityAverage < longTermPopularityAverage) ||
+      (!shortTermPopularityAverage &&
+        shortTermPriceAverage < longTermPriceAverage)
     ) {
       return 'Sell';
     } else return 'Hold';

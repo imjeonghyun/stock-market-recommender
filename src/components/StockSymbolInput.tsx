@@ -16,13 +16,7 @@ const StockSymbol: React.FC<Props> = (props) => {
   return (
     <>
       <div>{title}</div>
-      <input
-        type='text'
-        value={stockSymbol}
-        onChange={onTypeStockSymbol}
-        min='1'
-        max='30'
-      />
+      <input type='text' value={stockSymbol} onChange={onTypeStockSymbol} />
     </>
   );
 };

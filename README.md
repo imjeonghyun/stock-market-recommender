@@ -34,6 +34,8 @@
         - The average price of the short-term is lover than the average price of the long-term as well as the average social media count of the short-term is lover than the average social media count of the long-term
       - Hold
         - none of the above
+      - No social media counts
+        - If no social media count is present then it is calculated based on the average price of the short-term and the average price of the long-term
 
 ## Structure
 

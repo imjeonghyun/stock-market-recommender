@@ -33,6 +33,7 @@ const Main: React.FC<{}> = () => {
     const pullDate = formatDate(new Date());
     let pulledData: StockInformation[] = [];
 
+    // Do not pull data if state already holds required information from previous search
     if (
       !stockData.length ||
       stockData[0].symbol !== stockSymbol ||

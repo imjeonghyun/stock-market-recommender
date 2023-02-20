@@ -13,6 +13,8 @@ const Header: React.FC<Props> = (props) => {
   const { stockSymbol, setStockSymbol, onGetInformation } = props;
 
   const currentDate = formatDate(new Date());
+
+  // Date - 10 days (default) before the current date
   const oldestDate = formatDate(
     new Date(
       new Date().getTime() - (DEFAULT_DISPLAY_DAYS - 1) * 24 * 60 * 60 * 1000
